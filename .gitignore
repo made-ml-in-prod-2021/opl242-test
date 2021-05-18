@@ -90,3 +90,6 @@ target/
 
 #pickle
 *.pkl
+
+#outputs
+outputs/
