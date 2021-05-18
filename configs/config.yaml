@@ -1,9 +1,9 @@
 data:
-  raw: "data/raw/stars.csv"
-  processed: "data/processed/stars.csv"
+  raw: "../data/raw/stars.csv"
+  processed: "../data/processed/stars.csv"
 
 model:
-  store_path: "models/model.pkl"
+  store_path: "../models/model.pkl"
   n_estimators: 3
   criterion: "gini"
   max_depth: 5

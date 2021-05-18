@@ -3,30 +3,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import LabelEncoder
-# from sklearn.base import BaseEstimator, ClassifierMixin
-
-# Нужен трансформер
-
-# -----------------------------------------------------------------------------
-# class ToCategory():  # BaseEstimator, ClassifierMixin
-#     def __init__(self, col):
-#         self.col = col
-
-#     def fit(self, col):
-#         self.col = col
-
-
-#     def transform(self):
-#         return pd.Categorical(self.col).cat.codes
-
-
-# -----------------------------------------------------------------------------
-# class CleanColor(): 
-#     def __init__(self, col):
-#         self.col = col
-
-#     def fit(self, col):
-#         self.col = col
 
 
 # -----------------------------------------------------------------------------
@@ -74,7 +50,7 @@ def process_raw_dataset(df):
     df = rename_columns(df)
     df['color'] = clean_color(df.color)
 
-    columns_to_category = ['color', 'class']
+    columns_to_category = [q for q in ['color', 'class'] if q in df.columns]
     other_columns = [col for col in df.columns if col not in columns_to_category]
     
     transformer = ColumnTransformer(
@@ -84,7 +60,6 @@ def process_raw_dataset(df):
         ]
     )
     
-    # df = transformer.fit_transform(X=df, y=None)
     for col in columns_to_category:
         df[col] = pd.Categorical(df[col])
         df[col] = df[col].cat.codes

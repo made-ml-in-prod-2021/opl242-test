@@ -5,7 +5,7 @@ import pandas as pd
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
-from ml_project.features.build_features import process_raw_dataset
+from ..features.build_features import process_raw_dataset
 
 
 # -----------------------------------------------------------------------------
@@ -31,10 +31,15 @@ def main(input_filepath, output_filepath):
 
 
 # -----------------------------------------------------------------------------
-def make_dataset(input_filepath, output_filepath) -> pd.DataFrame:
+def make_dataset(input_filepath: str, output_filepath:str=None) -> pd.DataFrame:
+    if input_filepath[0] == '.':
+        input_filepath = Path(__file__).parent.parent / input_filepath
     df = pd.read_csv(input_filepath)
     df = process_raw_dataset(df)
-    df.to_csv(output_filepath, index=False)
+    if output_filepath is not None:
+        if output_filepath[0] == '.':
+            output_filepath = Path(__file__).parent.parent / output_filepath       
+        df.to_csv(output_filepath, index=False)
     return df
 
 

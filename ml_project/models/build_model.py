@@ -13,6 +13,4 @@ def build_model(model_cfg: DictConfig) -> ClassifierMixin:
         criterion=model_cfg.criterion,
         max_depth=model_cfg.max_depth,
     )
-    logger.info('Model isInstance:')
-    logger.info(isinstance(model, ClassifierMixin))
     return model

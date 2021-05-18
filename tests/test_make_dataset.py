@@ -8,8 +8,8 @@ from ml_project.entities.config import DataPathesSchema
 
 
 def test_make_dataset_1(hydra_cfg, tmpdir):
-    tmp_out = Path(tmpdir)/'out.csv'
-    make_dataset(input_filepath=hydra_cfg.data.raw, output_filepath=tmp_out)
+    tmp_out = Path(tmpdir) / 'out.csv'
+    make_dataset(input_filepath=hydra_cfg.data.raw, output_filepath=str(tmp_out))
     df = pd.read_csv(tmp_out)
     assert df.shape == (240, 7), f'df.shape is {df.shape}'
     assert 'magnitude' in df.columns
