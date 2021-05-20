@@ -1,3 +1,4 @@
+  
 import pytest
 import logging
 import numpy as np
@@ -8,6 +9,7 @@ from hydra.experimental import compose, initialize
 
 
 from ml_project.features.get_train_data import get_train_data
+from online_inference.app import app
 
 
 HYDRA_CONFIG_PATH = "../configs"
@@ -21,10 +23,8 @@ logger = logging.getLogger()
 # -----------------------------------------------------------------------------
 def generate_test_data(hydra_cfg: DictConfig, n_rows: int = 10):
     """ generating fake data for tests
-
     Args:
         n_rows (int, optional): number of rows. Defaults to 10.
-
     Returns:
         DataFrame: random data
     """
@@ -46,7 +46,6 @@ def generate_test_data(hydra_cfg: DictConfig, n_rows: int = 10):
 @pytest.fixture(scope='session')
 def hydra_cfg() -> DictConfig:
     """ load configuration
-
     Returns:
         DictConfig: configuration
     """
@@ -59,7 +58,6 @@ def hydra_cfg() -> DictConfig:
 @pytest.fixture(scope="session")
 def dummy_model() -> DummyClassifier:
     """ dummy model for testing operations with models
-
     Returns:
         DummyClassifier: model
     """
@@ -71,7 +69,6 @@ def dummy_model() -> DummyClassifier:
 @pytest.fixture(scope="session")
 def dummy_trained_model(hydra_cfg: DictConfig, dummy_model, random_data) -> DummyClassifier:
     """ dummy model trained on random data
-
     Returns:
         DummyClassifier: trained model
     """
@@ -87,10 +84,8 @@ def dummy_trained_model(hydra_cfg: DictConfig, dummy_model, random_data) -> Dumm
 @pytest.fixture(scope="session")
 def random_data(hydra_cfg: DictConfig) -> pd.DataFrame:
     """ generate ramdom data
-
     Args:
         hydra_cfg (DictConfig): configuration of data
-
     Returns:
         pd.DataFrame: generated data
     """
@@ -104,10 +99,8 @@ def random_data_x(
     random_data: pd.DataFrame
 ) -> pd.DataFrame:
     """ generate ramdom data, X only
-
     Args:
         hydra_cfg (DictConfig): configuration of data
-
     Returns:
         pd.DataFrame: generated data
     """
@@ -124,10 +117,8 @@ def random_data_y(
     random_data: pd.DataFrame
 ) -> pd.DataFrame:
     """ generate ramdom data, y only
-
     Args:
         hydra_cfg (DictConfig): configuration of data
-
     Returns:
         pd.DataFrame: generated data
     """
@@ -136,3 +127,9 @@ def random_data_y(
     #     model_cfg=hydra_cfg.model, df=random_data, test_size=0
     # )
     # return y_train
+import pytest
+
+@pytest.fixture()
+def client():
+    with app.test_client() as client:
+        yield client
