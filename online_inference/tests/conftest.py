@@ -1,6 +1,6 @@
 import pytest
 
-from online_inference.app import create_app
+from star_app import create_app
 
 
 app = create_app()

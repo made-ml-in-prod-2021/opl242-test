@@ -5,7 +5,7 @@ from marshmallow.exceptions import ValidationError
 from . import bp
 from .errors import bad_request
 from ..entities.config import modelFieldsSchema
-from ..ml_project.predict_online import predict_online
+from ..models.predict_online import predict_online
 
 
 @bp.route('/predict', methods=['GET'])

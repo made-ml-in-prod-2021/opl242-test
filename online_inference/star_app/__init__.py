@@ -4,8 +4,8 @@ from logging.handlers import RotatingFileHandler
 import pandas as pd
 
 
-from config import Config
-from .ml_project.load_model import load_model
+from .config import Config
+from .models.load_model import load_model
 
 
 def setup_logging(app):
@@ -23,7 +23,7 @@ def create_app(config_class=Config):
 
     setup_logging(app)    
 
-    from app.api import bp as api_bp
+    from star_app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/')
 
     app.model = load_model(app.config['MODEL_PATH'])
