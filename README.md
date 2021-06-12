@@ -14,25 +14,24 @@ https://data.mail.ru/profile/a.opolchenov/
 
 ## Usage: ##
 
-Train model:
-
-    python -m ml_project.train_pipeline
-
-Config file config/config.yaml
-
-You could change config params in cli:
-
-    python -m ml_project.train_pipeline data.raw="../data/raw/stars_2.csv" model.max_depth=3
-
-Model inferece:
-
-    python -m ml_project.predict.py [OPTIONS]
+    Usage: make_prediction.py [OPTIONS]
 
     Options:
-    --model_path PATH  Path to stored trained model
-    --path_to_x PATH   Path to raw data for predictions
-    --help             Show this message and exit.
+    --ip TEXT              Server IP
+    --port INTEGER         Server port
+    --temperature INTEGER  Temperature (K)
+    --luminocity FLOAT     Luminosity(L/Lo)
+    --radius FLOAT         Radius(R/Ro)
+    --magnitude FLOAT      Absolute magnitude(Mv)
+    --type INTEGER         Star type
+    --color TEXT           Star color
+    --help                 Show this message and exit.
+    
+Usage example:
 
+    python make_prediction.py --temperature=3068 --luminocity=0.17 --radius=16.12 --
+type=0 --color="red"
+    "M"
 
 ## Tets: ##
 
