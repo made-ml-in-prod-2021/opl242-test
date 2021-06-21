@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: opl-star-app
+  labels:
+    app: opl-star-app
+spec:
+  containers:
+    - image: opl242/opl_star_app:v2
+      name: opl-star-app
+      ports:
+        - containerPort: 5000
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "100m"
+        limits:
+          memory: "10Gi"
+          cpu: "500m"
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: 5000
+        initialDelaySeconds: 15
+        periodSeconds: 3
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: 5000
+        initialDelaySeconds: 45
+        periodSeconds: 3

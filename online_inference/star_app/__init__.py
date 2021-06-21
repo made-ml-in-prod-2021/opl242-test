@@ -2,6 +2,7 @@ from flask import Flask
 import logging
 from logging.handlers import RotatingFileHandler
 import pandas as pd
+import time
 
 
 from .config import Config
@@ -26,10 +27,16 @@ def create_app(config_class=Config):
     from star_app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/')
 
+
+    app.model = None
+    app.logger.info("loading model...")
+    time.sleep(20)
     app.model = load_model(app.config['MODEL_PATH'])
     df = pd.read_csv(app.config['COLOR_CODES_PATH'])
     app.color_codes = {val: code for code, val in df.values}
     df = pd.read_csv(app.config['CLASS_CODES_PATH'])
     app.class_codes = {code: val for code, val in df.values}
+    app.logger.info("model is loaded")
+    app.start_time = time.time()
 
     return app
