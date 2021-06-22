@@ -1,0 +1,32 @@
+output_dir: /data/raw/test
+n_rows: 10
+data_generation:
+  temperature:
+    is_int: True
+    min: 1939
+    max: 40000
+  luminocity:
+    is_int: False
+    min: 0.00008
+    max: 849420
+  radius:
+    is_int: False
+    min: 0.0084
+    max: 1948.5
+  magnitude:
+    is_int: False
+    min: -11.92
+    max: 20.06
+  type:
+    is_int: True
+    min: 0
+    max: 5
+  color:
+    is_int: True
+    min: 0
+    max: 6
+  class:
+    is_int: True
+    min: 0
+    max: 6
+target: 'OBAFGKM'

@@ -93,3 +93,6 @@ target/
 
 #outputs
 outputs/
+
+#data dir
+airflow_ml_dags/data/
