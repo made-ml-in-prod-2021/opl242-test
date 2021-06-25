@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-opl-star-app
+  labels: 
+    app: opl-star-app
+
+data:
+  config.yaml: |
+    seed: 242

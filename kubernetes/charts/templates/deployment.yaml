@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opl-star-app
+  labels:
+    app: opl-star-app
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.maxSurge }}
+      maxUnavailable: {{ .Values.maxUnavailable }}
+  selector:
+    matchLabels:
+      app: opl-star-app
+  template:
+    metadata:
+      name: opl-star-app
+      labels:
+        app: opl-star-app
+    spec:
+      containers:
+        - image: opl242/opl_star_app:{{ .Values.image.tag }}
+          name: opl-star-app
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+            limits:
+              memory: {{ .Values.resources.max_memory }}
+              cpu: {{ .Values.resources.max_cpu }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 45
+            periodSeconds: 3
